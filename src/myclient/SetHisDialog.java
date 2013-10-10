@@ -1,3 +1,8 @@
+/**
+ *
+ * @author UTEHN
+ */
+
 package myclient;
 
 import UTEHN.SimpleMySQL;

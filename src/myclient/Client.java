@@ -12,7 +12,7 @@ import javax.swing.*;
 
 /**
  *
- * @author mcherry
+ * @author UTEHN
  */
 public class Client extends JFrame implements Runnable
 {

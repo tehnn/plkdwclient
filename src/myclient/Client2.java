@@ -1,3 +1,7 @@
+/**
+ *
+ * @author UTEHN
+ */
 package myclient;
 
 import UTEHN.SimpleMySQL;
@@ -505,8 +509,13 @@ public class Client2 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStopActionPerformed
 
     private void mnuCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCloseActionPerformed
-        tray.remove(trayIcon);
-        System.exit(0);
+
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "ออกจากโปรแกรม", "Confirm", dialogButton);
+        if (dialogResult == 0) {
+            tray.remove(trayIcon);
+            System.exit(0);
+        }
     }//GEN-LAST:event_mnuCloseActionPerformed
 
     private void btnHideWinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHideWinActionPerformed
@@ -531,8 +540,14 @@ public class Client2 extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
 
-        tray.remove(trayIcon);
-        System.exit(0);
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "ออกจากโปรแกรม", "Confirm", dialogButton);
+        if (dialogResult == 0) {
+            tray.remove(trayIcon);
+            System.exit(0);
+        }
+
+
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void mnuHisConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuHisConActionPerformed
