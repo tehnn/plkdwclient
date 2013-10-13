@@ -11,7 +11,7 @@ public class Main
 	{
 		
 
-		Client2 client2 = new Client2();
+		new Client2();
 		
 		
 	}
