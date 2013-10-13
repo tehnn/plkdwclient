@@ -689,7 +689,7 @@ public class Client2 extends javax.swing.JFrame {
                                 synchronized (this) {
                                     if (isSending) {
                                         try {
-                                            Thread.sleep(10);
+                                            Thread.sleep(250);
                                             Vector v = new Vector();
                                             v.add(pcucode);
                                             v.add(table_name[3]);
