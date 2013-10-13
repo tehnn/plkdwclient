@@ -1,6 +1,6 @@
 /**
  *
- * @author UTEHN vvv
+ * @author UTEHN
  */
 package myclient;
 
