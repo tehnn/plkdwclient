@@ -48,20 +48,17 @@ public class Client2 extends javax.swing.JFrame {
     TrayIcon trayIcon;
     boolean isSending = false;
     String hishost, hisuser, hispass, hisdb;
+    
     Timer timer = new javax.swing.Timer(1 * 20 * 1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             if (isSending == false) {
-
                 isSending = true;
                 btnStartActionPerformed(null);
-
-
             }
         }
     });
 
     public Client2() {
-
 
         File iniFile = new File("config.ini");
         if (!iniFile.exists()) {
@@ -500,6 +497,7 @@ public class Client2 extends javax.swing.JFrame {
         log.setCaretPosition(log.getDocument().getLength());
 
         btnStart.setEnabled(false);
+        //timer.start();
 
     }//GEN-LAST:event_btnStartActionPerformed
 
@@ -668,7 +666,7 @@ public class Client2 extends javax.swing.JFrame {
                 //System.out.println(mysql.num_cols(result));
                 try {
                     while (result.next()) {
-                        if (!result.getString(1).equals("doraemon")) {
+                        if (!result.getString(1).equals("doraemon") && !result.getString(1).equals("adr_consult_dialog")) {
                             vector.add(result.getString(3));
                         }
                     }
@@ -699,8 +697,8 @@ public class Client2 extends javax.swing.JFrame {
                                         try {
                                             Thread.sleep(250);
                                             Vector v = new Vector();
-                                            v.add(pcucode);
-                                            v.add(table_name[3]);
+                                            v.add(pcucode+table_name[3]);
+                                            //v.add(table_name[3]);
                                             //v.add(rs.getRow());
 
                                             for (int n = 1; n <= num_col; n++) {
@@ -708,7 +706,7 @@ public class Client2 extends javax.swing.JFrame {
                                                 //String sss = "UPDATE " + table_name[3] + " SET " + colname + " = TRIM(TRAILING '\r\n' FROM " + colname + ")";
                                                 //System.out.println(sss);
                                                 //mysql.query(sss);
-                                                v.add(rs.getString(n));
+                                                v.add("'"+rs.getString(n)+"'");
 
                                             }
 
