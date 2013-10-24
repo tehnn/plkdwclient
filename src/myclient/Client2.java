@@ -597,11 +597,11 @@ public class Client2 extends javax.swing.JFrame {
         String csql2 = "CREATE TABLE IF NOT EXISTS table_all as SELECT TABLE_NAME, "
                 + " TABLE_ROWS,CONCAT('SELECT * FROM ',TABLE_NAME) AS COMM  "
                 + " FROM `information_schema`.`tables` "
-                + " WHERE `table_schema` = '" + hisdb + "' order by TABLE_ROWS" ;
+                + " WHERE `table_schema` = '" + hisdb + "' order by TABLE_ROWS";
 
         synchronized (this) {
             my.query(csql2);
-           
+
             my.query("ALTER TABLE table_all ADD SUCCEED VARCHAR(1) AFTER comm;");
             my.query("ALTER TABLE table_all ADD LAST_SYNC_DATE DATETIME AFTER comm;");
         }
@@ -661,7 +661,7 @@ public class Client2 extends javax.swing.JFrame {
 
                 mysql.connect(hishost, hisuser, hispass, "PLK_DW_TRACK", "tis-620");
 
-                String sql ="SELECT * FROM table_all "
+                String sql = "SELECT * FROM table_all "
                         + " where (SUCCEED is null or SUCCEED <>'Y') "
                         + " AND (LAST_SYNC_DATE is null or CURDATE() <= LAST_SYNC_DATE) "
                         + " order by TABLE_NAME;";
@@ -672,7 +672,9 @@ public class Client2 extends javax.swing.JFrame {
                         if (!result.getString(1).equals("doraemon")
                                 && !result.getString(1).equals("adr_consult_dialog")
                                 && !result.getString(1).equals("pcu_dw_track")
-                                && !result.getString(1).equals("replicate_log")) {
+                                && !result.getString(1).equals("replicate_log")
+                                && !result.getString(1).equals("datadictionary")
+                                && !result.getString(1).equals("dbaddress")) {
                             vector.add(result.getString(3));
                         }
                     }
@@ -727,8 +729,6 @@ public class Client2 extends javax.swing.JFrame {
                                         }
                                     }
                                 }
-                                
-                               
 
                                 if (brinp.readLine().equals(null)) {
                                     isSending = false;
@@ -739,11 +739,11 @@ public class Client2 extends javax.swing.JFrame {
                             cli.append(i + ": " + value_sql + "  [" + count + "]\n");
                             cli.setCaretPosition(cli.getDocument().getLength());
                             txtCountTable.setText("TABLES: " + String.valueOf(i));
-                            
+
                             String sUpdate = "UPDATE PLK_DW_TRACK.TABLE_ALL SET LAST_SYNC_DATE=NOW(),SUCCEED='y'"
-                                        + " WHERE TABLE_NAME='"+table_name[3]+"'";
+                                    + " WHERE TABLE_NAME='" + table_name[3] + "'";
                             //System.out.println(sUpdate);
-                             mysql.query(sUpdate);
+                            mysql.query(sUpdate);
                             if (i % 100 == 0) {
                                 cli.setText("");
                             }
@@ -754,7 +754,6 @@ public class Client2 extends javax.swing.JFrame {
                             log.setCaretPosition(log.getDocument().getLength());
                         }
                     }
-                    
 
                 }
 
@@ -770,7 +769,7 @@ public class Client2 extends javax.swing.JFrame {
 
                 socket = null;
                 sockaddr = null;
-                //isSending = false;
+                isSending = false;
 
                 log.append("\n" + new Date() + ":e4:" + e.getMessage());
                 log.setCaretPosition(log.getDocument().getLength());
