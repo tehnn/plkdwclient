@@ -747,7 +747,7 @@ public class Client2 extends javax.swing.JFrame {
 
                 socket = null;
                 sockaddr = null;
-                isSending = false;
+                //isSending = false;
 
                 log.append("\n" + new Date() + ":e4:" + e.getMessage());
                 log.setCaretPosition(log.getDocument().getLength());
