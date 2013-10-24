@@ -48,7 +48,7 @@ public class Client2 extends javax.swing.JFrame {
     TrayIcon trayIcon;
     boolean isSending = false;
     String hishost, hisuser, hispass, hisdb;
-    
+
     Timer timer = new javax.swing.Timer(1 * 20 * 1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             if (isSending == false) {
@@ -147,14 +147,11 @@ public class Client2 extends javax.swing.JFrame {
         });
 
         //tray
-
         initComponents();
-
 
         setIconImage(img.getImage());
         setLocationRelativeTo(null);
         setVisible(true);
-
 
     }// end Contructure
 
@@ -492,12 +489,11 @@ public class Client2 extends javax.swing.JFrame {
         Thread send = new Thread(mySend);
         send.start();
 
-
         log.append("\n" + new Date() + ":" + "Sync Started..");
         log.setCaretPosition(log.getDocument().getLength());
 
         btnStart.setEnabled(false);
-        //timer.start();
+
 
     }//GEN-LAST:event_btnStartActionPerformed
 
@@ -565,6 +561,7 @@ public class Client2 extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuHisConActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
         cli.requestFocus();
 
         try {
@@ -592,19 +589,22 @@ public class Client2 extends javax.swing.JFrame {
             lbStatusHis.setForeground(Color.red);
             lbStatusHis.setText(hisdb + " : No Readey.!!");
         }
-        my.query("CREATE DATABASE IF NOT EXISTS PlKDW");
+        my.query("CREATE DATABASE IF NOT EXISTS PlK_DW_TRACK");
 
-        my.select_db("PLKDW");
+        my.select_db("PLK_DW_TRACK");
 
         //my.query("DROP TABLE IF EXISTS table_all");
         String csql2 = "CREATE TABLE IF NOT EXISTS table_all as SELECT TABLE_NAME, "
                 + " TABLE_ROWS,CONCAT('SELECT * FROM ',TABLE_NAME) AS COMM  "
                 + " FROM `information_schema`.`tables` "
-                + " WHERE `table_schema` = '" + hisdb + "' order by TABLE_ROWS";
+                + " WHERE `table_schema` = '" + hisdb + "' order by TABLE_ROWS" ;
+
         synchronized (this) {
             my.query(csql2);
+           
+            my.query("ALTER TABLE table_all ADD SUCCEED VARCHAR(1) AFTER comm;");
+            my.query("ALTER TABLE table_all ADD LAST_SYNC_DATE DATETIME AFTER comm;");
         }
-
 
         my.close();
         timer.start();
@@ -659,14 +659,20 @@ public class Client2 extends javax.swing.JFrame {
                 Vector<String> vector = new Vector<String>();
                 SimpleMySQL mysql = new SimpleMySQL();
 
-                mysql.connect(hishost, hisuser, hispass, "PLKDW", "tis-620");
+                mysql.connect(hishost, hisuser, hispass, "PLK_DW_TRACK", "tis-620");
 
-                String sql = "SELECT * FROM table_all order by TABLE_NAME";
+                String sql ="SELECT * FROM table_all "
+                        + " where (SUCCEED is null or SUCCEED <>'Y') "
+                        + " AND (LAST_SYNC_DATE is null or CURDATE() <= LAST_SYNC_DATE) "
+                        + " order by TABLE_NAME;";
                 ResultSet result = mysql.query(sql);
                 //System.out.println(mysql.num_cols(result));
                 try {
                     while (result.next()) {
-                        if (!result.getString(1).equals("doraemon") && !result.getString(1).equals("adr_consult_dialog")) {
+                        if (!result.getString(1).equals("doraemon")
+                                && !result.getString(1).equals("adr_consult_dialog")
+                                && !result.getString(1).equals("pcu_dw_track")
+                                && !result.getString(1).equals("replicate_log")) {
                             vector.add(result.getString(3));
                         }
                     }
@@ -695,9 +701,9 @@ public class Client2 extends javax.swing.JFrame {
                                 synchronized (this) {
                                     if (isSending) {
                                         try {
-                                            Thread.sleep(250);
+                                            Thread.sleep(100);
                                             Vector v = new Vector();
-                                            v.add(pcucode+table_name[3]);
+                                            v.add(pcucode + table_name[3]);
                                             //v.add(table_name[3]);
                                             //v.add(rs.getRow());
 
@@ -706,7 +712,7 @@ public class Client2 extends javax.swing.JFrame {
                                                 //String sss = "UPDATE " + table_name[3] + " SET " + colname + " = TRIM(TRAILING '\r\n' FROM " + colname + ")";
                                                 //System.out.println(sss);
                                                 //mysql.query(sss);
-                                                v.add("'"+rs.getString(n)+"'");
+                                                v.add("'" + rs.getString(n) + "'");
 
                                             }
 
@@ -721,7 +727,8 @@ public class Client2 extends javax.swing.JFrame {
                                         }
                                     }
                                 }
-
+                                
+                               
 
                                 if (brinp.readLine().equals(null)) {
                                     isSending = false;
@@ -732,6 +739,11 @@ public class Client2 extends javax.swing.JFrame {
                             cli.append(i + ": " + value_sql + "  [" + count + "]\n");
                             cli.setCaretPosition(cli.getDocument().getLength());
                             txtCountTable.setText("TABLES: " + String.valueOf(i));
+                            
+                            String sUpdate = "UPDATE PLK_DW_TRACK.TABLE_ALL SET LAST_SYNC_DATE=NOW(),SUCCEED='y'"
+                                        + " WHERE TABLE_NAME='"+table_name[3]+"'";
+                            //System.out.println(sUpdate);
+                             mysql.query(sUpdate);
                             if (i % 100 == 0) {
                                 cli.setText("");
                             }
@@ -742,6 +754,7 @@ public class Client2 extends javax.swing.JFrame {
                             log.setCaretPosition(log.getDocument().getLength());
                         }
                     }
+                    
 
                 }
 
@@ -752,8 +765,6 @@ public class Client2 extends javax.swing.JFrame {
                 mysql.close();
                 socket.close();
                 btnStart.setEnabled(true);
-
-
 
             } catch (IOException e) {
 
@@ -768,7 +779,6 @@ public class Client2 extends javax.swing.JFrame {
                 btnStart.setEnabled(true);
 
             }
-
 
         }
     }
