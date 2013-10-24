@@ -198,6 +198,7 @@ public class Client2 extends javax.swing.JFrame {
         mnuHisCon = new javax.swing.JMenuItem();
         mnuAboutFF = new javax.swing.JMenu();
         mnuAbout = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setTitle("Plk Dw Sync Client 1.0");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -224,6 +225,8 @@ public class Client2 extends javax.swing.JFrame {
 
         txtPcuCode.setText("00000");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("PCUCODE");
 
         lbStatusHis.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -261,6 +264,8 @@ public class Client2 extends javax.swing.JFrame {
 
         jLabel3.setText("Port");
 
+        btnStart.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnStart.setForeground(new java.awt.Color(0, 153, 51));
         btnStart.setText("Start Sync");
         btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,6 +273,8 @@ public class Client2 extends javax.swing.JFrame {
             }
         });
 
+        btnHideWin.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnHideWin.setForeground(new java.awt.Color(102, 102, 0));
         btnHideWin.setText("Hide to Tray");
         btnHideWin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,6 +282,8 @@ public class Client2 extends javax.swing.JFrame {
             }
         });
 
+        btnStop.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnStop.setForeground(new java.awt.Color(204, 0, 51));
         btnStop.setText(" Stop Sync ");
         btnStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,6 +296,8 @@ public class Client2 extends javax.swing.JFrame {
         jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel4.setPreferredSize(new java.awt.Dimension(34, 30));
 
+        btnExit.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnExit.setForeground(new java.awt.Color(255, 0, 51));
         btnExit.setText("       Exit      ");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +314,7 @@ public class Client2 extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtTable)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +335,7 @@ public class Client2 extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,7 +352,7 @@ public class Client2 extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,6 +400,9 @@ public class Client2 extends javax.swing.JFrame {
         });
         mnuAboutFF.add(mnuAbout);
 
+        jMenuItem1.setText("Check for Update");
+        mnuAboutFF.add(jMenuItem1);
+
         jMenuBar1.add(mnuAboutFF);
 
         setJMenuBar(jMenuBar1);
@@ -402,17 +416,17 @@ public class Client2 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIp, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(txtIp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnStart)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnStop))
                     .addGroup(layout.createSequentialGroup()
@@ -529,7 +543,7 @@ public class Client2 extends javax.swing.JFrame {
     private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutActionPerformed
 
         JOptionPane.showMessageDialog(null,
-                "Plk Dw Sync Client.\n");
+                "Plk Dw Sync Client.\nDeveloper : Mr.UTEHN J.\ntehnnn@gmail.com");
     }//GEN-LAST:event_mnuAboutActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -775,6 +789,7 @@ public class Client2 extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
