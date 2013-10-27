@@ -22,6 +22,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.nio.charset.Charset;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -647,7 +648,7 @@ public class Client2 extends javax.swing.JFrame {
 
                 socket.connect(sockaddr);
 
-                out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);//*
+                out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),Charset.forName("UTF-8")), true);//*
 
                 brinp = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
